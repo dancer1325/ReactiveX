@@ -26,6 +26,7 @@ id: languages
 * PHP: [RxPHP](https://github.com/ReactiveX/RxPHP)
 * Elixir: [reaxive](https://github.com/alfert/reaxive)
 * Dart: [RxDart](https://github.com/ReactiveX/rxdart)
+* Julia: [Rocket](https://github.com/ReactiveBayes/Rocket.jl)
 
 ## ReactiveX for platforms and frameworks
 
