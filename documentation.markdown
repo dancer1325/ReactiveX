@@ -4,92 +4,49 @@ title: ReactiveX - Documentation
 id: documentation
 ---
 
-#Getting Started
+# Getting Started
 
-## Getting Binaries
+## Via dependency system
+* "com.netflix.rxjava:rxjava-core", via 
+  * Maven
+  * Ivy
+  * Gradle
+  * SBT
 
-You can find binaries and dependency information for Maven, Ivy, Gradle, SBT, and others at [http://search.maven.org](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.netflix.rxjava%22%20AND%20a%3A%22rxjava-core%22). You need Java 6 or later.
+## Via Binaries
 
-<div id="getting-binaries">
-  <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-    <li class="active"><a href="#maven" data-toggle="tab">Maven</a></li>
-    <li><a href="#ivy" data-toggle="tab">Ivy</a></li>
-    <li><a href="#sbt" data-toggle="tab">SBT</a></li>
-  </ul>
-  <div class="tab-content">
-    <div class="tab-pane active" id="maven">
-{% highlight xml %}
-<dependency>
-    <groupId>com.netflix.rxjava</groupId>
-    <artifactId>rxjava-core</artifactId>
-    <version>0.19.0</version>
-</dependency>
-{% endhighlight %}
+* create a Maven `pom.xml` like
 
-If you need to download the jars instead of using a build system, create a Maven `pom` file like this with the desired version:
+    ````
+    <?xml version="1.0"?>
+    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+      <modelVersion>4.0.0</modelVersion>
+      <groupId>com.netflix.rxjava.download</groupId>
+      <artifactId>rxjava-download</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <name>Simple POM to download rxjava-core and dependencies</name>
+      <url>http://github.com/Netflix/RxJava</url>
+      <dependencies>
+        <dependency>
+          <groupId>com.netflix.rxjava</groupId>
+          <artifactId>rxjava-core</artifactId>
+          <version>0.17.0</version>
+          <scope/>
+        </dependency>
+      </dependencies>
+    </project>
+    ```
 
-{% highlight xml %}
-<?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.netflix.rxjava.download</groupId>
-  <artifactId>rxjava-download</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <name>Simple POM to download rxjava-core and dependencies</name>
-  <url>http://github.com/Netflix/RxJava</url>
-  <dependencies>
-    <dependency>
-      <groupId>com.netflix.rxjava</groupId>
-      <artifactId>rxjava-core</artifactId>
-      <version>0.17.0</version>
-      <scope/>
-    </dependency>
-  </dependencies>
-</project>
-{% endhighlight %}
+* `mvn -f pom.xml dependency:copy-dependencies`
+  * check that `rxjava-core-*.jar` is created | `./target/dependency/`
 
-Then execute:
+## Building from source code
 
-{% highlight bash %}
-$ mvn -f download-rxjava-pom.xml dependency:copy-dependencies
-{% endhighlight %}
-
-That command downloads `rxjava-core-*.jar` and its dependencies into `./target/dependency/`.
-
-    </div>
-    <div class="tab-pane" id="ivy">
-{% highlight xml %}
-<dependency org="com.netflix.rxjava" name="rxjava-core" rev="0.17.0" />
-{% endhighlight %}
-    </div>
-    <div class="tab-pane" id="sbt">
-{% highlight scala %}
-libraryDependencies += "com.netflix.rxjava" % "rxjava-scala" % "0.17.0"
-{% endhighlight %}
-    </div>
-  </div>
-</div>
-
-## Building from source
-
-To check out and build the RxJava source, issue the following commands:
 
 ```
 $ git clone git@github.com:Netflix/RxJava.git
 $ cd RxJava/
-$ ./gradlew build
-```
-
-To do a clean build, issue the following command:
-
-```
 $ ./gradlew clean build
-```
-
-A build should look similar to this:
-
-```
-$ ./gradlew build
 :rxjava-core:compileJava
 :rxjava-core:processResources UP-TO-DATE
 :rxjava-core:classes
@@ -111,41 +68,26 @@ BUILD SUCCESSFUL
 Total time: 30.758 secs
 ```
 
-On a clean build you will see the unit tests run. They will look something like this:
+# Example1: Hello World!
 
-```
-> Building > :rxjava-core:test > 91 tests completed
-```
+* sample implementations of “Hello World” 
+  * goal
+    * from a list of Strings -> create an Observable
+    * subscribe to this Observable / prints “Hello _String_!” / string -- emitted by the -- Observable 
+  * | (-- Check `/src/examples`)
+    * Java,
+    * Groovy,
+    * Clojure,
+    * Scala  .
 
-# Hello World!
+* More examples
+  * [Groovy examples](https://github.com/Netflix/RxJava/tree/master/language-adaptors/rxjava-groovy/src/examples)
+  * [Clojure examples](https://github.com/Netflix/RxJava/tree/master/language-adaptors/rxjava-clojure/src/examples)
+  * [Scala examples](https://github.com/Netflix/RxJava/tree/master/language-adaptors/rxjava-scala/src/examples)
 
-The following sample implementations of “Hello World” in Java, Groovy, Clojure, and Scala create an Observable from a list of Strings, and then subscribe to this Observable with a method that prints “Hello _String_!” for each string emitted by the Observable.
+# Example2: Larger example
 
-You can find additional code examples in the `/src/examples` folders of each [language adaptor](https://github.com/Netflix/RxJava/tree/master/language-adaptors):
-
-* [Groovy examples](https://github.com/Netflix/RxJava/tree/master/language-adaptors/rxjava-groovy/src/examples)
-* [Clojure examples](https://github.com/Netflix/RxJava/tree/master/language-adaptors/rxjava-clojure/src/examples)
-* [Scala examples](https://github.com/Netflix/RxJava/tree/master/language-adaptors/rxjava-scala/src/examples)
-
-<tabs-panel flex>
-  <tab-code label="Java" language="java" 
-    url="https://api.github.com/repos/ReactiveX/reactivex.github.io/contents/examples/java/hello.java" 
-    url2="https://api.github.com/repos/ReactiveX/reactivex.github.io/contents/examples/java/hello.output"></tab-code>
-  <tab-code label="Scala" language="scala" 
-    url="https://api.github.com/repos/GeorgiKhomeriki/RxJava/contents/language-adaptors/rxjava-scala/src/examples/reactivex/getting-started/hello.scala" 
-    url2="https://api.github.com/repos/GeorgiKhomeriki/RxJava/contents/language-adaptors/rxjava-scala/src/examples/reactivex/getting-started/hello.output"></tab-code>
-  <tab-code label="Groovy" language="groovy" 
-    url="https://api.github.com/repos/ReactiveX/reactivex.github.io/contents/examples/groovy/hello.groovy" 
-    url2="https://api.github.com/repos/ReactiveX/reactivex.github.io/contents/examples/groovy/hello.output"></tab-code>
-  <tab-code label="Clojure" language="clojure" 
-    url="https://api.github.com/repos/ReactiveX/reactivex.github.io/contents/examples/clojure/hello.clj" 
-    url2="https://api.github.com/repos/ReactiveX/reactivex.github.io/contents/examples/clojure/hello.output"></tab-code>
-  <tab-code label="Kotlin" language="" url=""></tab-code>
-  <tab-code label="JRuby" language="" url=""></tab-code>
-</tabs-panel>
-
-# Larger example
-
+* TODO:
 To use RxJava you create Observables (which emit data items), transform those Observables in various ways to get the precise data items that interest you (by using Observable operators), and then observe and react to these sequences of interesting items (by implementing Observers or Subscribers and then subscribing them to the resulting transformed Observables).
 
 ## Creating Observables
