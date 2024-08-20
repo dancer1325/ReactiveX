@@ -148,7 +148,7 @@ id: intro
  </tbody>
 </table></center>
 <p>
- The Observable type adds two missing semantics to <a href="http://en.wikipedia.org/wiki/Observer_pattern">the
+ TODO: The Observable type adds two missing semantics to <a href="http://en.wikipedia.org/wiki/Observer_pattern">the
  Gang of Four’s Observer pattern</a>, to match those that are available in the Iterable type:
 </p><ol>
  <li>the ability for the producer to signal to the consumer that there is no more data available (a foreach loop
